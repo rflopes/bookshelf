@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
+import { jsx } from '@emotion/core';
 
-import * as React from 'react'
-import {Routes, Route, Link} from 'react-router-dom'
-import {Button} from './components/lib'
-import * as mq from './styles/media-queries'
-import * as colors from './styles/colors'
-import {DiscoverBooksScreen} from './screens/discover'
-import {BookScreen} from './screens/book'
-import {NotFoundScreen} from './screens/not-found'
+import * as React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import { Button } from './components/lib';
+import * as mq from './styles/media-queries';
+import * as colors from './styles/colors';
+import { DiscoverBooksScreen } from './screens/discover';
+import { BookScreen } from './screens/book';
+import { NotFoundScreen } from './screens/not-found';
 
-function AuthenticatedApp({user, logout}) {
+function AuthenticatedApp({ user, logout }) {
   return (
     <React.Fragment>
       <div
@@ -23,7 +23,11 @@ function AuthenticatedApp({user, logout}) {
         }}
       >
         {user.username}
-        <Button variant="secondary" css={{marginLeft: '10px'}} onClick={logout}>
+        <Button
+          variant="secondary"
+          css={{ marginLeft: '10px' }}
+          onClick={logout}
+        >
           Logout
         </Button>
       </div>
@@ -43,15 +47,15 @@ function AuthenticatedApp({user, logout}) {
           },
         }}
       >
-        <div css={{position: 'relative'}}>
+        <div css={{ position: 'relative' }}>
           <Nav />
         </div>
-        <main css={{width: '100%'}}>
+        <main css={{ width: '100%' }}>
           <AppRoutes user={user} />
         </main>
       </div>
     </React.Fragment>
-  )
+  );
 }
 
 function NavLink(props) {
@@ -74,7 +78,7 @@ function NavLink(props) {
       }}
       {...props}
     />
-  )
+  );
 }
 
 function Nav() {
@@ -103,17 +107,17 @@ function Nav() {
         </li>
       </ul>
     </nav>
-  )
+  );
 }
 
-function AppRoutes({user}) {
+function AppRoutes({ user }) {
   return (
     <Routes>
       <Route path="/discover" element={<DiscoverBooksScreen user={user} />} />
       <Route path="/book/:bookId" element={<BookScreen user={user} />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>
-  )
+  );
 }
 
-export {AuthenticatedApp}
+export { AuthenticatedApp };

@@ -1,4 +1,4 @@
-// 🐨 you don't need to do anything in this file for the exercise. This is
-// just here for the extra credit. See the instructions for more info.
-
-module.exports = () => {}
+module.exports = app => {
+  // when a get for / redirect to discover
+  app.get(/^\/$/, (req, res) => res.redirect('/discover'));
+};

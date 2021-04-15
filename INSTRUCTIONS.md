@@ -24,28 +24,28 @@ Here's a quick demo of a few of the features you'll need to know about for this
 exercise:
 
 ```javascript
-import * as React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react';
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useParams,
   Link,
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 function Home() {
-  return <h2>Home</h2>
+  return <h2>Home</h2>;
 }
 
 function About() {
-  return <h2>About</h2>
+  return <h2>About</h2>;
 }
 
 function Dog() {
-  const params = useParams()
-  const {dogId} = params
-  return <img src={`/img/dogs/${dogId}`} />
+  const params = useParams();
+  const { dogId } = params;
+  return <img src={`/img/dogs/${dogId}`} />;
 }
 
 function Nav() {
@@ -55,11 +55,11 @@ function Nav() {
       <Link to="/about">About</Link>
       <Link to="/dog/123">My Favorite Dog</Link>
     </nav>
-  )
+  );
 }
 
 function YouLost() {
-  return <div>You lost?</div>
+  return <div>You lost?</div>;
 }
 
 function App() {
@@ -74,7 +74,7 @@ function App() {
         <Route path="*" element={<YouLost />} />
       </Routes>
     </div>
-  )
+  );
 }
 
 function AppWithRouter() {
@@ -82,10 +82,10 @@ function AppWithRouter() {
     <Router>
       <App />
     </Router>
-  )
+  );
 }
 
-ReactDOM.render(<AppWithRouter />, document.getElementById('app'))
+ReactDOM.render(<AppWithRouter />, document.getElementById('app'));
 ```
 
 That should be enough to get you going on this exercise.
@@ -163,7 +163,7 @@ function proxy(app) {
   // add the redirect handler here
 }
 
-module.exports = proxy
+module.exports = proxy;
 ```
 
 📜 Here are some docs that might be helpful to you:
@@ -239,7 +239,7 @@ can use:
 You can determine whether the URL matches a given path via the `useMatch` hook:
 
 ```javascript
-const matches = useMatch('/some-path')
+const matches = useMatch('/some-path');
 ```
 
 From there, you can conditionally apply the styles.
