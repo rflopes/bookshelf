@@ -1,8 +1,8 @@
-const apiURL = process.env.REACT_APP_API_URL
+const apiURL = process.env.REACT_APP_API_URL;
 
 function client(
   endpoint,
-  {token, headers: customHeaders, ...customConfig} = {},
+  { token, headers: customHeaders, ...customConfig } = {},
 ) {
   const config = {
     headers: {
@@ -10,16 +10,16 @@ function client(
       ...customHeaders,
     },
     ...customConfig,
-  }
+  };
 
   return window.fetch(`${apiURL}/${endpoint}`, config).then(async response => {
-    const data = await response.json()
+    const data = await response.json();
     if (response.ok) {
-      return data
+      return data;
     } else {
-      return Promise.reject(data)
+      return Promise.reject(data);
     }
-  })
+  });
 }
 
-export {client}
+export { client };

@@ -216,8 +216,8 @@ emoji characters are here to help you.
 If your "database" gets out of whack, you can purge it via:
 
 ```javascript
-window.__bookshelf.purgeUsers()
-window.__bookshelf.purgeListItems()
+window.__bookshelf.purgeUsers();
+window.__bookshelf.purgeListItems();
 ```
 
 - Book

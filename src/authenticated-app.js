@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
+import { jsx } from '@emotion/core';
 
-import * as React from 'react'
-import {Button} from './components/lib'
-import * as mq from './styles/media-queries'
-import {DiscoverBooksScreen} from './discover'
+import * as React from 'react';
+import { Button } from './components/lib';
+import * as mq from './styles/media-queries';
+import { DiscoverBooksScreen } from './discover';
 
-function AuthenticatedApp({user, logout}) {
+function AuthenticatedApp({ user, logout }) {
   return (
     <React.Fragment>
       <div
@@ -19,7 +19,11 @@ function AuthenticatedApp({user, logout}) {
         }}
       >
         {user.username}
-        <Button variant="secondary" css={{marginLeft: '10px'}} onClick={logout}>
+        <Button
+          variant="secondary"
+          css={{ marginLeft: '10px' }}
+          onClick={logout}
+        >
           Logout
         </Button>
       </div>
@@ -42,7 +46,7 @@ function AuthenticatedApp({user, logout}) {
         <DiscoverBooksScreen />
       </div>
     </React.Fragment>
-  )
+  );
 }
 
-export {AuthenticatedApp}
+export { AuthenticatedApp };

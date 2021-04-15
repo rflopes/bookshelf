@@ -1,18 +1,22 @@
-import ReactDOM from 'react-dom'
-import '@testing-library/jest-dom/extend-expect'
-import {screen, waitForElementToBeRemoved, within} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import faker from 'faker'
-import {server} from 'test/server'
+import ReactDOM from 'react-dom';
+import '@testing-library/jest-dom/extend-expect';
+import {
+  screen,
+  waitForElementToBeRemoved,
+  within,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import faker from 'faker';
+import { server } from 'test/server';
 
 // enable API mocking in test runs using the same request handlers
 // as for the client-side mocking.
-beforeAll(() => server.listen())
-afterAll(() => server.close())
-afterEach(() => server.resetHandlers())
+beforeAll(() => server.listen());
+afterAll(() => server.close());
+afterEach(() => server.resetHandlers());
 
 // this is a pretty comprehensive test and CI is pretty slow...
-jest.setTimeout(25000)
+jest.setTimeout(25000);
 
 function buildUser(overrides) {
   return {
@@ -20,7 +24,7 @@ function buildUser(overrides) {
     username: faker.internet.userName(),
     password: faker.internet.password(),
     ...overrides,
-  }
+  };
 }
 
 const waitForLoadingToFinish = () =>
@@ -29,31 +33,31 @@ const waitForLoadingToFinish = () =>
       ...screen.queryAllByLabelText(/loading/i),
       ...screen.queryAllByText(/loading/i),
     ],
-    {timeout: 4000},
-  )
+    { timeout: 4000 },
+  );
 
 test('can login and use the book search', async () => {
-  const root = document.createElement('div')
-  root.id = 'root'
-  document.body.append(root)
+  const root = document.createElement('div');
+  root.id = 'root';
+  document.body.append(root);
 
-  require('..')
+  require('..');
 
-  const user = buildUser()
+  const user = buildUser();
 
-  userEvent.click(await screen.findByRole('button', {name: /register/i}))
+  userEvent.click(await screen.findByRole('button', { name: /register/i }));
 
-  const modal = within(screen.getByRole('dialog'))
-  userEvent.type(modal.getByLabelText(/username/i), user.username)
-  userEvent.type(modal.getByLabelText(/password/i), user.password)
+  const modal = within(screen.getByRole('dialog'));
+  userEvent.type(modal.getByLabelText(/username/i), user.username);
+  userEvent.type(modal.getByLabelText(/password/i), user.password);
 
-  userEvent.click(modal.getByRole('button', {name: /register/i}))
+  userEvent.click(modal.getByRole('button', { name: /register/i }));
 
-  await waitForLoadingToFinish()
+  await waitForLoadingToFinish();
 
-  userEvent.click(screen.getByRole('button', {name: /logout/i}))
+  userEvent.click(screen.getByRole('button', { name: /logout/i }));
 
   // cleanup
-  ReactDOM.unmountComponentAtNode(root)
-  document.body.removeChild(root)
-})
+  ReactDOM.unmountComponentAtNode(root);
+  document.body.removeChild(root);
+});
