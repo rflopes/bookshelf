@@ -47,19 +47,19 @@ Here are a few examples of how you can use react-query that are relevant for our
 exercise:
 
 ```javascript
-function App({tweetId}) {
+function App({ tweetId }) {
   const result = useQuery({
-    queryKey: ['tweet', {tweetId}],
-    queryFn: (key, {tweetId}) =>
+    queryKey: ['tweet', { tweetId }],
+    queryFn: (key, { tweetId }) =>
       client(`tweet/${tweetId}`).then(data => data.tweet),
-  })
+  });
   // result has several properties, here are a few relevant ones:
   //   status
   //   data
   //   error
   //   isLoading
 
-  const [removeTweet, state] = useMutation(() => tweetClient.remove(tweetId))
+  const [removeTweet, state] = useMutation(() => tweetClient.remove(tweetId));
   // call removeTweet when you want to execute the mutation callback
   // state has several properties, here are a few relevant ones:
   //   status
@@ -122,6 +122,8 @@ credit will really simplify things for you!
 ## Extra Credit
 
 ### 1. 💯 Make hooks
+
+[Production deploy](https://exercises-06-cache-management.bookshelf.lol/extra-1)
 
 How are you enjoying all this repetition? No? Yeah, I'm not a big fan either.
 Here's where React hooks come in really handy! Let's make a few custom hooks.
@@ -189,14 +191,14 @@ const queryConfig = {
   queries: {
     /* your global query config */
   },
-}
+};
 
 ReactDOM.render(
   <ReactQueryConfigProvider config={queryConfig}>
     <App />
   </ReactQueryConfigProvider>,
   document.getElementById('root'),
-)
+);
 ```
 
 Once you're finished, try going to http://localhost:3000/book/not-a-book-id
@@ -227,7 +229,7 @@ destructure the `error` and `isError` properties
 display the error inline. You can use this UI:
 
 ```javascript
-import {ErrorMessage} from 'components/lib'
+import { ErrorMessage } from 'components/lib';
 
 // ... then in the component next to the label:
 {
@@ -235,9 +237,9 @@ import {ErrorMessage} from 'components/lib'
     <ErrorMessage
       error={error}
       variant="inline"
-      css={{marginLeft: 6, fontSize: '0.7em'}}
+      css={{ marginLeft: 6, fontSize: '0.7em' }}
     />
-  ) : null
+  ) : null;
 }
 ```
 
@@ -260,15 +262,15 @@ Here's what the `throwOnError` does:
 ```javascript
 const [mutate] = useMutation(
   () => {
-    throw new Error('oh no, mutation failed!')
+    throw new Error('oh no, mutation failed!');
   },
-  {throwOnError: true},
-)
+  { throwOnError: true },
+);
 
-const success = () => console.log('success')
-const failure = () => console.log('failure')
+const success = () => console.log('success');
+const failure = () => console.log('failure');
 
-mutate().then(success, failure)
+mutate().then(success, failure);
 
 // {throwOnError: false} (which is the default) would log: "success"
 // {throwOnError: true} logs: "failure"

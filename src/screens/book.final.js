@@ -1,20 +1,20 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
+import { jsx } from '@emotion/core';
 
-import * as React from 'react'
-import debounceFn from 'debounce-fn'
-import {FaRegCalendarAlt} from 'react-icons/fa'
-import Tooltip from '@reach/tooltip'
-import {useParams} from 'react-router-dom'
-import {useQuery, useMutation, queryCache} from 'react-query'
-import {client} from 'utils/api-client'
-import {formatDate} from 'utils/misc'
-import * as mq from 'styles/media-queries'
-import * as colors from 'styles/colors'
-import {Textarea} from 'components/lib'
-import {Rating} from 'components/rating'
-import {StatusButtons} from 'components/status-buttons'
-import bookPlaceholderSvg from 'assets/book-placeholder.svg'
+import * as React from 'react';
+import debounceFn from 'debounce-fn';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import Tooltip from '@reach/tooltip';
+import { useParams } from 'react-router-dom';
+import { useQuery, useMutation, queryCache } from 'react-query';
+import { client } from 'utils/api-client';
+import { formatDate } from 'utils/misc';
+import * as mq from 'styles/media-queries';
+import * as colors from 'styles/colors';
+import { Textarea } from 'components/lib';
+import { Rating } from 'components/rating';
+import { StatusButtons } from 'components/status-buttons';
+import bookPlaceholderSvg from 'assets/book-placeholder.svg';
 
 const loadingBook = {
   title: 'Loading...',
@@ -23,24 +23,24 @@ const loadingBook = {
   publisher: 'Loading Publishing',
   synopsis: 'Loading...',
   loadingBook: true,
-}
+};
 
-function BookScreen({user}) {
-  const {bookId} = useParams()
-  const {data: book = loadingBook} = useQuery({
-    queryKey: ['book', {bookId}],
+function BookScreen({ user }) {
+  const { bookId } = useParams();
+  const { data: book = loadingBook } = useQuery({
+    queryKey: ['book', { bookId }],
     queryFn: () =>
-      client(`books/${bookId}`, {token: user.token}).then(data => data.book),
-  })
+      client(`books/${bookId}`, { token: user.token }).then(data => data.book),
+  });
 
-  const {data: listItems} = useQuery({
+  const { data: listItems } = useQuery({
     queryKey: 'list-items',
     queryFn: () =>
-      client(`list-items`, {token: user.token}).then(data => data.listItems),
-  })
-  const listItem = listItems?.find(li => li.bookId === bookId) ?? null
+      client(`list-items`, { token: user.token }).then(data => data.listItems),
+  });
+  const listItem = listItems?.find(li => li.bookId === bookId) ?? null;
 
-  const {title, author, coverImageUrl, publisher, synopsis} = book
+  const { title, author, coverImageUrl, publisher, synopsis } = book;
 
   return (
     <div>
@@ -59,15 +59,15 @@ function BookScreen({user}) {
         <img
           src={coverImageUrl}
           alt={`${title} book cover`}
-          css={{width: '100%', maxWidth: '14rem'}}
+          css={{ width: '100%', maxWidth: '14rem' }}
         />
         <div>
-          <div css={{display: 'flex', position: 'relative'}}>
-            <div css={{flex: 1, justifyContent: 'space-between'}}>
+          <div css={{ display: 'flex', position: 'relative' }}>
+            <div css={{ flex: 1, justifyContent: 'space-between' }}>
               <h1>{title}</h1>
               <div>
                 <i>{author}</i>
-                <span css={{marginRight: 6, marginLeft: 6}}>|</span>
+                <span css={{ marginRight: 6, marginLeft: 6 }}>|</span>
                 <i>{publisher}</i>
               </div>
             </div>
@@ -86,7 +86,7 @@ function BookScreen({user}) {
               )}
             </div>
           </div>
-          <div css={{marginTop: 10, height: 46}}>
+          <div css={{ marginTop: 10, height: 46 }}>
             {listItem?.finishDate ? (
               <Rating user={user} listItem={listItem} />
             ) : null}
@@ -100,28 +100,28 @@ function BookScreen({user}) {
         <NotesTextarea user={user} listItem={listItem} />
       ) : null}
     </div>
-  )
+  );
 }
 
-function ListItemTimeframe({listItem}) {
+function ListItemTimeframe({ listItem }) {
   const timeframeLabel = listItem.finishDate
     ? 'Start and finish date'
-    : 'Start date'
+    : 'Start date';
 
   return (
     <Tooltip label={timeframeLabel}>
-      <div aria-label={timeframeLabel} css={{marginTop: 6}}>
-        <FaRegCalendarAlt css={{marginTop: -2, marginRight: 5}} />
+      <div aria-label={timeframeLabel} css={{ marginTop: 6 }}>
+        <FaRegCalendarAlt css={{ marginTop: -2, marginRight: 5 }} />
         <span>
           {formatDate(listItem.startDate)}{' '}
           {listItem.finishDate ? `— ${formatDate(listItem.finishDate)}` : null}
         </span>
       </div>
     </Tooltip>
-  )
+  );
 }
 
-function NotesTextarea({listItem, user}) {
+function NotesTextarea({ listItem, user }) {
   const [mutate] = useMutation(
     updates =>
       client(`list-items/${updates.id}`, {
@@ -129,14 +129,15 @@ function NotesTextarea({listItem, user}) {
         data: updates,
         token: user.token,
       }),
-    {onSettled: () => queryCache.invalidateQueries('list-items')},
-  )
-  const debouncedMutate = React.useMemo(() => debounceFn(mutate, {wait: 300}), [
-    mutate,
-  ])
+    { onSettled: () => queryCache.invalidateQueries('list-items') },
+  );
+  const debouncedMutate = React.useMemo(
+    () => debounceFn(mutate, { wait: 300 }),
+    [mutate],
+  );
 
   function handleNotesChange(e) {
-    debouncedMutate({id: listItem.id, notes: e.target.value})
+    debouncedMutate({ id: listItem.id, notes: e.target.value });
   }
 
   return (
@@ -159,10 +160,10 @@ function NotesTextarea({listItem, user}) {
         id="notes"
         defaultValue={listItem.notes}
         onChange={handleNotesChange}
-        css={{width: '100%', minHeight: 300}}
+        css={{ width: '100%', minHeight: 300 }}
       />
     </React.Fragment>
-  )
+  );
 }
 
-export {BookScreen}
+export { BookScreen };

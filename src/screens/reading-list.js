@@ -1,8 +1,8 @@
-import * as React from 'react'
-import {Link} from 'components/lib'
-import {ListItemList} from 'components/list-item-list'
+import * as React from 'react';
+import { Link } from 'components/lib';
+import { ListItemList } from 'components/list-item-list';
 
-function ReadingListScreen({user}) {
+function ReadingListScreen({ user }) {
   return (
     <ListItemList
       user={user}
@@ -22,7 +22,7 @@ function ReadingListScreen({user}) {
         </p>
       }
     />
-  )
+  );
 }
 
-export {ReadingListScreen}
+export { ReadingListScreen };

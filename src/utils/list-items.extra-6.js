@@ -1,31 +1,31 @@
-import {useQuery, useMutation, queryCache} from 'react-query'
-import {setQueryDataForBook} from './books'
-import {client} from './api-client'
+import { useQuery, useMutation, queryCache } from 'react-query';
+import { setQueryDataForBook } from './books';
+import { client } from './api-client';
 
 function useListItems(user) {
-  const {data: listItems} = useQuery({
+  const { data: listItems } = useQuery({
     queryKey: 'list-items',
     queryFn: () =>
-      client(`list-items`, {token: user.token}).then(data => data.listItems),
+      client(`list-items`, { token: user.token }).then(data => data.listItems),
     config: {
       onSuccess(listItems) {
         for (const listItem of listItems) {
-          setQueryDataForBook(listItem.book)
+          setQueryDataForBook(listItem.book);
         }
       },
     },
-  })
-  return listItems ?? []
+  });
+  return listItems ?? [];
 }
 
 function useListItem(user, bookId) {
-  const listItems = useListItems(user)
-  return listItems.find(li => li.bookId === bookId) ?? null
+  const listItems = useListItems(user);
+  return listItems.find(li => li.bookId === bookId) ?? null;
 }
 
 const defaultMutationOptions = {
   onSettled: () => queryCache.invalidateQueries('list-items'),
-}
+};
 
 function useUpdateListItem(user, options) {
   return useMutation(
@@ -35,22 +35,24 @@ function useUpdateListItem(user, options) {
         data: updates,
         token: user.token,
       }),
-    {...defaultMutationOptions, ...options},
-  )
+    { ...defaultMutationOptions, ...options },
+  );
 }
 
 function useRemoveListItem(user, options) {
   return useMutation(
-    ({id}) => client(`list-items/${id}`, {method: 'DELETE', token: user.token}),
-    {...defaultMutationOptions, ...options},
-  )
+    ({ id }) =>
+      client(`list-items/${id}`, { method: 'DELETE', token: user.token }),
+    { ...defaultMutationOptions, ...options },
+  );
 }
 
 function useCreateListItem(user, options) {
   return useMutation(
-    ({bookId}) => client(`list-items`, {data: {bookId}, token: user.token}),
-    {...defaultMutationOptions, ...options},
-  )
+    ({ bookId }) =>
+      client(`list-items`, { data: { bookId }, token: user.token }),
+    { ...defaultMutationOptions, ...options },
+  );
 }
 
 export {
@@ -59,4 +61,4 @@ export {
   useUpdateListItem,
   useRemoveListItem,
   useCreateListItem,
-}
+};

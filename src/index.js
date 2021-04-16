@@ -1,6 +1,6 @@
 // no final
 
-export * from './index.exercise'
+export * from './index.exercise';
 
-// 💯 Wrap the <App /> in a <ReactQueryConfigProvider />
+// 💯 Wrap the `<App />` in a `<ReactQueryConfigProvider />`
 // export * from './index.extra-2'

@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
+import { jsx } from '@emotion/core';
 
-import {Link} from 'react-router-dom'
-import {useListItem} from 'utils/list-items'
-import * as mq from 'styles/media-queries'
-import * as colors from 'styles/colors'
-import {StatusButtons} from './status-buttons'
-import {Rating} from './rating'
+import { Link } from 'react-router-dom';
+import { useListItem } from 'utils/list-items';
+import * as mq from 'styles/media-queries';
+import * as colors from 'styles/colors';
+import { StatusButtons } from './status-buttons';
+import { Rating } from './rating';
 
-function BookRow({user, book}) {
-  const {title, author, coverImageUrl} = book
+function BookRow({ user, book }) {
+  const { title, author, coverImageUrl } = book;
 
-  const listItem = useListItem(user, book.id)
+  const listItem = useListItem(user, book.id);
 
-  const id = `book-row-book-${book.id}`
+  const id = `book-row-book-${book.id}`;
 
   return (
     <div
@@ -55,12 +55,12 @@ function BookRow({user, book}) {
           <img
             src={coverImageUrl}
             alt={`${title} book cover`}
-            css={{maxHeight: '100%', width: '100%'}}
+            css={{ maxHeight: '100%', width: '100%' }}
           />
         </div>
-        <div css={{flex: 1}}>
-          <div css={{display: 'flex', justifyContent: 'space-between'}}>
-            <div css={{flex: 1}}>
+        <div css={{ flex: 1 }}>
+          <div css={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div css={{ flex: 1 }}>
               <h2
                 id={id}
                 css={{
@@ -75,7 +75,7 @@ function BookRow({user, book}) {
                 <Rating user={user} listItem={listItem} />
               ) : null}
             </div>
-            <div css={{marginLeft: 10}}>
+            <div css={{ marginLeft: 10 }}>
               <div
                 css={{
                   marginTop: '0.4em',
@@ -88,7 +88,7 @@ function BookRow({user, book}) {
               <small>{book.publisher}</small>
             </div>
           </div>
-          <small css={{whiteSpace: 'break-spaces', display: 'block'}}>
+          <small css={{ whiteSpace: 'break-spaces', display: 'block' }}>
             {book.synopsis.substring(0, 500)}...
           </small>
         </div>
@@ -108,7 +108,7 @@ function BookRow({user, book}) {
         <StatusButtons user={user} book={book} />
       </div>
     </div>
-  )
+  );
 }
 
-export {BookRow}
+export { BookRow };

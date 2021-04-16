@@ -1,8 +1,8 @@
-import * as React from 'react'
-import {Link} from 'components/lib'
-import {ListItemList} from 'components/list-item-list'
+import * as React from 'react';
+import { Link } from 'components/lib';
+import { ListItemList } from 'components/list-item-list';
 
-function FinishedScreen({user}) {
+function FinishedScreen({ user }) {
   return (
     <ListItemList
       user={user}
@@ -23,7 +23,7 @@ function FinishedScreen({user}) {
         </p>
       }
     />
-  )
+  );
 }
 
-export {FinishedScreen}
+export { FinishedScreen };
